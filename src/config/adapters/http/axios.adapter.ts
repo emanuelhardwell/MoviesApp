@@ -6,11 +6,10 @@ interface Options {
   params: Record<string, string>;
 }
 
-export class AxiosAdapter extends HttpAdapter {
+export class AxiosAdapter implements HttpAdapter {
   private axiosInstance: AxiosInstance;
 
   constructor(options: Options) {
-    super();
     this.axiosInstance = axios.create({
       baseURL: options.baseUrl,
       params: options.params,
@@ -25,7 +24,7 @@ export class AxiosAdapter extends HttpAdapter {
       const {data} = await this.axiosInstance.get<T>(url, options);
       return data;
     } catch (error) {
-      throw new Error(`Error al hacer la petición: ${url}`);
+      throw new Error(`Error fetching get: ${url}`);
     }
   }
 }

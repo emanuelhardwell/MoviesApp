@@ -15,6 +15,6 @@ export const moviesNowPlayingUseCase = async (
     return [];
   } catch (error) {
     console.log(error);
-    throw new Error(`Error fetching `);
+    throw new Error(`Error fetching movies - Now Playing`);
   }
 };
