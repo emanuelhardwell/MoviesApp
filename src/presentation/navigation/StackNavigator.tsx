@@ -2,7 +2,12 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {DetailsScreen} from '../screens/details/DetailsScreen';
 import {HomeScreen} from '../screens/home/HomeScreen';
 
-const Stack = createStackNavigator();
+export type RootStackParams = {
+  Home: undefined;
+  Details: {id: number};
+};
+
+const Stack = createStackNavigator<RootStackParams>();
 
 export const StackNavigator = () => {
   return (
