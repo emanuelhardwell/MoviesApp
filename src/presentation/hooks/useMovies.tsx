@@ -5,6 +5,9 @@ import {MovieDbAdapter} from '../../config/adapters/movieDb.adapter';
 
 export const useMovies = () => {
   const [nowPlaying, setNowPlaying] = useState<MovieEntity[]>([]);
+  const [popular, setPopular] = useState<MovieEntity[]>([]);
+  const [topRated, setTopRated] = useState<MovieEntity[]>([]);
+  const [upcoming, setUpcoming] = useState<MovieEntity[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -12,11 +15,32 @@ export const useMovies = () => {
   }, []);
 
   const initialLoad = async () => {
-    const nowPlayingMovies = await UseCases.moviesNowPlayingUseCase(
-      MovieDbAdapter,
-    );
-    return nowPlayingMovies;
+    const nowPlayingPromise = UseCases.moviesNowPlayingUseCase(MovieDbAdapter);
+    const popularPromise = UseCases.moviePopularUseCase(MovieDbAdapter);
+    const topRatedPromise = UseCases.movieTopRatedUseCase(MovieDbAdapter);
+    const upcomingPromise = UseCases.movieUpcomingUseCase(MovieDbAdapter);
+
+    const [nowPlayingMovies, popularMovies, topRatedMovies, upcomingMovies] =
+      await Promise.all([
+        nowPlayingPromise,
+        popularPromise,
+        topRatedPromise,
+        upcomingPromise,
+      ]);
+
+    setNowPlaying(nowPlayingMovies);
+    setPopular(popularMovies);
+    setTopRated(topRatedMovies);
+    setUpcoming(upcomingMovies);
+
+    setIsLoading(false);
   };
 
-  return {};
+  return {
+    isLoading,
+    nowPlaying,
+    popular,
+    topRated,
+    upcoming,
+  };
 };
