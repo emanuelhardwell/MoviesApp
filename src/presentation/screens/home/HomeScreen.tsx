@@ -8,7 +8,8 @@ import {ScrollView} from 'react-native-gesture-handler';
 export const HomeScreen = () => {
   const {top} = useSafeAreaInsets();
 
-  const {isLoading, nowPlaying, popular, topRated, upcoming} = useMovies();
+  const {isLoading, nowPlaying, popular, topRated, upcoming, popularNextPage} =
+    useMovies();
 
   if (isLoading) {
     return <Text> Cargando ... </Text>;
@@ -22,7 +23,7 @@ export const HomeScreen = () => {
 
         {/* popular */}
         <HorizontalCarousel
-          loadNextPage={() => console.log('Fin del flatList')}
+          loadNextPage={() => popularNextPage()}
           movies={popular}
           title="Popular"
         />
