@@ -62,7 +62,7 @@ export const HorizontalCarousel: FC<HorizontalCarouselProps> = ({
         renderItem={({item}) => (
           <PosterMovie movie={item} width={140} height={200} />
         )}
-        keyExtractor={item => item.id.toString()}
+        keyExtractor={(item, index) => `${item.id}-${index}`}
         horizontal
         showsHorizontalScrollIndicator={false}
         onScroll={event => onScroll(event)}
