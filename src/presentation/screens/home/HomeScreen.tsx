@@ -21,7 +21,11 @@ export const HomeScreen = () => {
         <PosterCarousel movies={nowPlaying} />
 
         {/* popular */}
-        <HorizontalCarousel movies={popular} title="Popular" />
+        <HorizontalCarousel
+          loadNextPage={() => console.log('Fin del flatList')}
+          movies={popular}
+          title="Popular"
+        />
 
         {/* popular */}
         <HorizontalCarousel movies={topRated} title="Top Rated" />
