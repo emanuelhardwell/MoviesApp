@@ -19,7 +19,7 @@ export const PosterMovie: FC<PosterMovieProps> = ({
 
   return (
     <Pressable
-      onPress={() => navigation.navigate('Details', {id: movie.id})}
+      onPress={() => navigation.navigate('Details', {movieId: movie.id})}
       style={({pressed}) => ({
         width,
         height,
