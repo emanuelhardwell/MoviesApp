@@ -5,11 +5,11 @@ import {MovieFullEntity} from '../../entities/movie-full.entity';
 
 export const GetByIdMovieUseCase = async (
   fetcherHttpAdapter: HttpAdapter,
-  movieId: string,
+  movieId: number,
 ): Promise<MovieFullEntity> => {
   try {
     const getByIdMovie = await fetcherHttpAdapter.get<GetByIdMovieResponse>(
-      movieId,
+      `/${movieId}`,
     );
 
     return MovieFullMapper.mapper(getByIdMovie);
