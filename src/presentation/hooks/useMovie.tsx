@@ -9,20 +9,25 @@ interface useMovieProps {
 
 export const useMovie = ({movieId}: useMovieProps) => {
   const [movie, setMovie] = useState<MovieFullEntity>();
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     init();
   }, []);
 
   const init = async () => {
+    setLoading(true);
     const movieFull = await UseCases.GetByIdMovieUseCase(
       MovieDbAdapter,
       movieId,
     );
     setMovie(movieFull);
+
+    setLoading(false);
   };
 
   return {
+    loading,
     movie,
   };
 };
