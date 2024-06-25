@@ -1,11 +1,11 @@
 import {StackScreenProps} from '@react-navigation/stack';
-import {Text} from 'react-native';
 import {RootStackParams} from '../../navigation/StackNavigator';
 import {FC} from 'react';
 import {useMovie} from '../../hooks/useMovie';
 import {MovieHeader} from '../../components/movie/MovieHeader';
 import {MovieDetails} from '../../components/movie/MovieDetails';
 import {ScrollView} from 'react-native-gesture-handler';
+import {FullScreenLoader} from '../../components/loaders/FullScreenLoader';
 
 interface DetailsScreenProps
   extends StackScreenProps<RootStackParams, 'Details'> {}
@@ -18,7 +18,7 @@ export const DetailsScreen: FC<DetailsScreenProps> = ({
   const {loading, movie, casts = []} = useMovie({movieId});
 
   if (loading) {
-    return <Text> Loading ... </Text>;
+    return <FullScreenLoader />;
   }
 
   return (
