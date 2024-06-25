@@ -15,7 +15,7 @@ export const DetailsScreen: FC<DetailsScreenProps> = ({
     params: {movieId},
   },
 }) => {
-  const {loading, movie, cast} = useMovie({movieId});
+  const {loading, movie, casts = []} = useMovie({movieId});
 
   if (loading) {
     return <Text> Loading ... </Text>;
@@ -30,7 +30,7 @@ export const DetailsScreen: FC<DetailsScreenProps> = ({
         originalTitle={movie!.originalTitle}
       />
 
-      <MovieDetails movie={movie!} />
+      <MovieDetails movie={movie!} casts={casts} />
     </ScrollView>
   );
 };
