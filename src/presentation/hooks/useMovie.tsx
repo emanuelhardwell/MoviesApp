@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import * as UseCases from '../../core/use-cases';
 import {MovieDbAdapter} from '../../config/adapters/movieDb.adapter';
 import {MovieFullEntity} from '../../core/entities/movie-full.entity';
+import {castCreditsEntity} from '../../core/entities/cast-credits.entity';
 
 interface useMovieProps {
   movieId: number;
@@ -9,6 +10,7 @@ interface useMovieProps {
 
 export const useMovie = ({movieId}: useMovieProps) => {
   const [movie, setMovie] = useState<MovieFullEntity>();
+  const [cast, setCast] = useState<castCreditsEntity[]>();
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -23,11 +25,15 @@ export const useMovie = ({movieId}: useMovieProps) => {
     );
     setMovie(movieFull);
 
+    const casts = await UseCases.getCastCreditsUseCase(MovieDbAdapter, movieId);
+    setCast(casts);
+
     setLoading(false);
   };
 
   return {
     loading,
     movie,
+    cast,
   };
 };
